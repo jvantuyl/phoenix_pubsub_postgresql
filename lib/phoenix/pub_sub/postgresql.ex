@@ -22,6 +22,7 @@ defmodule Phoenix.PubSub.PostgreSQL do
     * `:otp_app` - OTP app used to find repo configuration (usually autodetected from repo)
     * `:node_name` - Override PubSub node name (defaults to Erlang node name, then system hostname)
     * `:post_init_func` - Function executed after initialization (used for tests)
+    * `:pg_config` - PostgreSQL configuration options (overrides options inferred from repo)
   """
 
   use GenServer
@@ -87,7 +88,9 @@ defmodule Phoenix.PubSub.PostgreSQL do
     adapter_name = Keyword.fetch!(opts, :adapter_name)
     repo = Keyword.fetch!(opts, :repo)
     otp_app = Keyword.get_lazy(opts, :otp_app, fn -> Application.get_application(repo) end)
-    pg_config = Application.fetch_env!(otp_app, repo)
+    repo_config = Application.fetch_env!(otp_app, repo)
+    proc_config = Keyword.get(opts, :pg_config, [])
+    pg_config = Keyword.merge(repo_config, proc_config)
 
     {:ok, node_name} = find_node_name(opts)
     :ets.new(adapter_name, [:public, :named_table, read_concurrency: true])
