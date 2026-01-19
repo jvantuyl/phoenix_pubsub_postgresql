@@ -1,0 +1,4 @@
+[tools]
+elixir = "latest"
+elixir-ls = "latest"
+erlang = "latest"
