@@ -93,17 +93,17 @@ defmodule Phoenix.PubSub.PostgreSQL do
     :ets.new(adapter_name, [:public, :named_table, read_concurrency: true])
     :ets.insert(adapter_name, {:node_name, node_name})
 
-    main_channel = "#{name}:GLOBAL"
-    node_channel = "#{name}:NODE:#{node_name}"
+    main_channel = "#{inspect(name)}:GLOBAL"
+    node_channel = "#{inspect(name)}:NODE:#{node_name}"
 
     {:ok, notifier_pid} = Postgrex.Notifications.start_link(pg_config)
-    Logger.info("#{name}: connected to postgres")
+    Logger.info("#{inspect(name)}: connected to postgres")
 
     {:ok, _listen_ref} = Postgrex.Notifications.listen(notifier_pid, main_channel)
-    Logger.info("#{name}: listening on #{main_channel}")
+    Logger.info("#{inspect(name)}: listening on #{main_channel}")
 
     {:ok, _listen_ref} = Postgrex.Notifications.listen(notifier_pid, node_channel)
-    Logger.info("#{name}: listening on #{node_channel}")
+    Logger.info("#{inspect(name)}: listening on #{node_channel}")
 
     if opts[:post_init_func] do
       :ok = apply(opts[:post_init_func], [opts])
@@ -126,13 +126,13 @@ defmodule Phoenix.PubSub.PostgreSQL do
     target_node
     |> case do
       :_ ->
-        {:remote, "#{state.name}:GLOBAL"}
+        {:remote, "#{inspect(state.name)}:GLOBAL"}
 
       ^me ->
         :local
 
       node ->
-        {:remote, "#{state.name}:NODE:#{node}"}
+        {:remote, "#{inspect(state.name)}:NODE:#{node}"}
     end
     |> case do
       {:remote, channel} ->
@@ -159,7 +159,9 @@ defmodule Phoenix.PubSub.PostgreSQL do
     {:phx_pgx_msg, from, topic, message, dispatcher} =
       payload |> Base85.decode!(@b85_opts) |> :erlang.binary_to_term()
 
-    Logger.debug("#{state.name}: successfully decoded broadcast received on channel #{channel}")
+    Logger.debug(
+      "#{inspect(state.name)}: successfully decoded broadcast received on channel #{channel}"
+    )
 
     # suppress global message from self
     if from != node_name(state.adapter_name) do
