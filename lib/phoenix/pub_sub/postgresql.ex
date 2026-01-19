@@ -22,8 +22,8 @@ defmodule Phoenix.PubSub.PostgreSQL do
     * `:otp_app` - OTP app used to find repo configuration (usually autodetected from repo)
     * `:node_name` - Override PubSub node name (defaults to Erlang node name, then system hostname)
     * `:post_init_func` - Function executed after initialization (used for tests)
-
   """
+
   use GenServer
   @behaviour Phoenix.PubSub.Adapter
 
@@ -139,7 +139,9 @@ defmodule Phoenix.PubSub.PostgreSQL do
         raw_payload = {:phx_pgx_msg, me, topic, message, dispatcher}
 
         payload =
-          raw_payload |> :erlang.term_to_binary(compressed: @compression_level) |> Base85.encode!(@b85_opts)
+          raw_payload
+          |> :erlang.term_to_binary(compressed: @compression_level)
+          |> Base85.encode!(@b85_opts)
 
         # We use the function syntax because NOTIFY doesn't seem to parse and
         # it avoids issues casting the channel as a PostgreSQL identifier.
