@@ -10,6 +10,8 @@ defmodule Phoenix.PubSub.PostgreSQL.MixProject do
       version: @version,
       elixir: "~> 1.19",
       start_permanent: Mix.env() == :prod,
+      elixirc_paths: elixirc_paths(Mix.env()),
+      aliases: aliases(),
       deps: deps(),
       # Hex Packaging
       package: package(),
@@ -18,6 +20,15 @@ defmodule Phoenix.PubSub.PostgreSQL.MixProject do
       source_url: @source_url,
       homepage_url: @source_url,
       docs: &docs/0
+    ]
+  end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
+  defp aliases do
+    [
+      test: ["ecto.create --quiet", "test"]
     ]
   end
 
