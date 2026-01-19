@@ -46,7 +46,7 @@ defmodule Phoenix.PubSub.PostgreSQL do
   defmodule State do
     @type t :: %State{}
 
-    defstruct [:name, :adapter_name, :repo]
+    defstruct [:name, :adapter_name, :repo, :notifier_pid]
   end
 
   # API
@@ -115,8 +115,12 @@ defmodule Phoenix.PubSub.PostgreSQL do
     state = %State{
       name: name,
       adapter_name: adapter_name,
-      repo: repo
+      repo: repo,
+      notifier_pid: notifier_pid
     }
+
+    # so we can shut down the notifier cleanly
+    false = Process.flag(:trap_exit, true)
 
     {:ok, state}
   end
@@ -172,6 +176,11 @@ defmodule Phoenix.PubSub.PostgreSQL do
     end
 
     {:noreply, state}
+  end
+
+  @impl true
+  def terminate(_reason, state) do
+    Process.exit(state.notifier_pid, :normal)
   end
 
   # helpers
