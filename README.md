@@ -18,7 +18,7 @@ Add `phoenix_pubsub_postgresql` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:phoenix_pubsub_postgresql, "~> 0.1.0"}
+    {:phoenix_pubsub_postgresql, "~> 0.6.0"}
   ]
 end
 ```
