@@ -8,24 +8,22 @@ defmodule Phoenix.PubSub.PostgreSQLTest do
 
   @moduletag :capture_log
 
-  setup_all do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Testing.Repo)
-    Ecto.Adapters.SQL.Sandbox.mode(Testing.Repo, {:shared, self()})
+  setup do
+    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Testing.Repo, shared: true)
+    on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
 
     pubsub_name = :"test_pubsub_#{System.unique_integer([:positive])}"
     node_name = :"test_node_#{System.unique_integer([:positive])}"
 
-    pid =
-      start_link_supervised!(
+    pubsub_pid =
+      start_supervised!(
         {PubSub, name: pubsub_name, adapter: PostgreSQL, repo: Testing.Repo, node_name: node_name}
       )
 
     # Give the adapter time to connect and set up listeners
     Process.sleep(100)
 
-    Logger.info("Started pubsub #{pubsub_name}@#{node_name} (#{inspect(pid)})")
-
-    {:ok, pubsub: pubsub_name, node: node_name, pid: pid}
+    {:ok, pubsub: pubsub_name, node: node_name, pid: pubsub_pid}
   end
 
   describe "node_name/1" do
