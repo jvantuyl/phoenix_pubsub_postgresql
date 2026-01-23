@@ -62,7 +62,7 @@ defmodule Phoenix.PubSub.PostgreSQL.MixProject do
 
   defp deps do
     [
-      {:base85, "~> 0.2"},
+      {:base85, "~> 1.0"},
       {:ecto, ">= 3.0.0"},
       {:ecto_sql, ">= 3.0.0"},
       {:phoenix_pubsub, ">= 2.0.0"},
