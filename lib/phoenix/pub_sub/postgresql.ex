@@ -102,10 +102,10 @@ defmodule Phoenix.PubSub.PostgreSQL do
     {:ok, notifier_pid} = Postgrex.Notifications.start_link(pg_config)
     Logger.info("#{inspect(name)}: connected to postgres")
 
-    {:ok, _listen_ref} = Postgrex.Notifications.listen(notifier_pid, main_channel)
+    _listen_ref = listen!(notifier_pid, main_channel)
     Logger.info("#{inspect(name)}: listening on #{main_channel}")
 
-    {:ok, _listen_ref} = Postgrex.Notifications.listen(notifier_pid, node_channel)
+    _listen_ref = listen!(notifier_pid, node_channel)
     Logger.info("#{inspect(name)}: listening on #{node_channel}")
 
     if opts[:post_init_func] do
@@ -184,6 +184,15 @@ defmodule Phoenix.PubSub.PostgreSQL do
   end
 
   # helpers
+  # Handle both {:ok, ref} and {:eventually, ref} from Postgrex.Notifications.listen/2
+  # The latter is returned when sync_connect: false and connection isn't established yet
+  defp listen!(notifier_pid, channel) do
+    case Postgrex.Notifications.listen(notifier_pid, channel) do
+      {:ok, ref} -> ref
+      {:eventually, ref} -> ref
+    end
+  end
+
   defp find_node_name(opts) do
     if !is_nil(opts[:node_name]), do: throw(opts[:node_name])
     if Node.alive?(), do: throw(node())
