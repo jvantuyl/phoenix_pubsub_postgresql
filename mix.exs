@@ -1,7 +1,7 @@
 defmodule Phoenix.PubSub.PostgreSQL.MixProject do
   use Mix.Project
 
-  @version "0.6.1"
+  @version "0.7.0"
   @source_url "https://github.com/jvantuyl/phoenix_pubsub_postgresql"
 
   def project do
@@ -62,7 +62,7 @@ defmodule Phoenix.PubSub.PostgreSQL.MixProject do
 
   defp deps do
     [
-      {:base85, "~> 1.0"},
+      {:base85, "~> 1.1"},
       {:ecto, ">= 3.0.0"},
       {:ecto_sql, ">= 3.0.0"},
       {:phoenix_pubsub, ">= 2.0.0"},

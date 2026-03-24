@@ -1,5 +1,5 @@
 %{
-  "base85": {:hex, :base85, "1.0.0", "132db2377098bb59d53f5c042e66acdacd131681fc127e5001d30833aae38791", [:mix], [{:memoize, "~> 1.4.4", [hex: :memoize, repo: "hexpm", optional: false]}, {:pipet, "~> 0.1", [hex: :pipet, repo: "hexpm", optional: false]}], "hexpm", "7e605be3a54ef9242f5181d753ba22e4cfdf31df9526a26132d2a7efb80dde95"},
+  "base85": {:hex, :base85, "1.1.0", "8f5e3036d4d6383bff255faad4bcfaf6f5b40587cbbd34442aa03f4362030d93", [:mix], [{:memoize, "~> 1.4.4", [hex: :memoize, repo: "hexpm", optional: false]}, {:pipet, "~> 0.1", [hex: :pipet, repo: "hexpm", optional: false]}], "hexpm", "a04d9403b02a5dd26f3f1f4ef2f39c845ef9c2e609fdf9d9103905b14a23998a"},
   "db_connection": {:hex, :db_connection, "2.9.0", "a6a97c5c958a2d7091a58a9be40caf41ab496b0701d21e1d1abff3fa27a7f371", [:mix], [{:telemetry, "~> 0.4 or ~> 1.0", [hex: :telemetry, repo: "hexpm", optional: false]}], "hexpm", "17d502eacaf61829db98facf6f20808ed33da6ccf495354a41e64fe42f9c509c"},
   "decimal": {:hex, :decimal, "2.3.0", "3ad6255aa77b4a3c4f818171b12d237500e63525c2fd056699967a3e7ea20f62", [:mix], [], "hexpm", "a4d66355cb29cb47c3cf30e71329e58361cfcb37c34235ef3bf1d7bf3773aeac"},
   "earmark_parser": {:hex, :earmark_parser, "1.4.44", "f20830dd6b5c77afe2b063777ddbbff09f9759396500cdbe7523efd58d7a339c", [:mix], [], "hexpm", "4778ac752b4701a5599215f7030989c989ffdc4f6df457c5f36938cc2d2a2750"},

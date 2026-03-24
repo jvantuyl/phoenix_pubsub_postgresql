@@ -40,7 +40,7 @@ defmodule Phoenix.PubSub.PostgreSQL do
   @type broadcast_msg :: {:broadcast, node_name(), topic(), message(), dispatcher()}
   @type notification_msg :: {:notification, pid(), reference(), channel(), binary()}
 
-  @b85_opts [charset: :postgresql, padding: :pkcs7]
+  @b85_opts [profile: :postgresql]
   @compression_level 6
 
   defmodule State do
