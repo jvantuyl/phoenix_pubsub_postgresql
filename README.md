@@ -1,5 +1,7 @@
 # Phoenix.PubSub.PostgreSQL
 
+[![Build Status](https://github.com/jvantuyl/phoenix_pubsub_postgresql/workflows/CI/badge.svg)](https://github.com/jvantuyl/phoenix_pubsub_postgresql/actions/workflows/ci.yml) [![Hex.pm](https://img.shields.io/hexpm/v/phoenix_pubsub_postgresql.svg)](https://hex.pm/packages/phoenix_pubsub_postgresql) [![Documentation](https://img.shields.io/badge/documentation-gray)](https://phoenix-pubsub-postgresql.hexdocs.pm)
+
 A Phoenix PubSub adapter that uses PostgreSQL's `LISTEN` / `NOTIFY` for message distribution.
 
 This adapter allows multiple nodes of a Phoenix application to communicate through a shared PostgreSQL database, eliminating the need for additional infrastructure like Redis or a distributed Erlang cluster.
@@ -23,7 +25,7 @@ def deps do
 end
 ```
 
-Documentation is generated with [ExDoc](https://github.com/elixir-lang/ex_doc) and published on [HexDocs](https://hexdocs.pm). The docs can be found at [https://hexdocs.pm/base85](https://hexdocs.pm/base85).
+Documentation is generated with [ExDoc](https://github.com/elixir-lang/ex_doc) and published on [HexDocs](https://hexdocs.pm). The docs can be found at [https://phoenix-pubsub-postgresql.hexdocs.pm](https://phoenix-pubsub-postgresql.hexdocs.pm).
 
 ## Configuration
 
