@@ -47,6 +47,8 @@ children = [
 - `:repo` - (required) An `Ecto.Repo` module to use for database connectivity
 - `:otp_app` - OTP app used to find repo configuration (usually autodetected from repo)
 - `:node_name` - Override PubSub node name (defaults to Erlang node name, then system hostname)
+- `:pg_config` - Override PostgreSQL configuration options. See https://postgrex.hexdocs.pm/Postgrex.Notifications.html#start_link/1
+  for available options
 
 ## Usage
 
